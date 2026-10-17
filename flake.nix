@@ -17,7 +17,8 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    pname = "my-shell";
+    name = "blackberry-shell";
+    pname = "blackberry-shell";
     entry = "app.ts";
 
     # シェルに注入する設定 (widget/config.ts の Config と同じ構造)。
