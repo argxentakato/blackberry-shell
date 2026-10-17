@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "typecheck": "! tsc --noEmit --pretty false | grep -E '^(app\\.ts|env\\.d\\.ts|widget/)'"
+  },
+  "dependencies": {
+    "ags": "*",
+    "gnim": "*"
+  },
+  "prettier": {
+    "semi": false,
+    "tabWidth": 2
+  }
+}

@@ -1,0 +1,319 @@
+// 色はすべて GTK システムテーマのテーマカラー変数 (@theme_*) を参照する。
+// フォントファミリーも指定せず、テーマの既定フォントに従う。
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+$selected-bg: #{"@theme_selected_bg_color"};
+$selected-fg: #{"@theme_selected_fg_color"};
+$unfocused-fg: #{"@theme_unfocused_fg_color"};
+
+// ワークスペースのドット用。GTK CSS の alpha() は Sass の関数と衝突するので文字列で渡す
+$dot-track: #{"alpha(@theme_fg_color, 0.08)"};
+$dot-idle: #{"alpha(@theme_fg_color, 0.25)"};
+$dot-occupied: #{"alpha(@theme_fg_color, 0.6)"};
+
+// 選択・フォーカス中のボタンの配色
+@mixin selected {
+  background: $selected-bg;
+  color: $selected-fg;
+}
+
+// ============================================================================
+// ステータスバー
+// ============================================================================
+window.Bar {
+  background: transparent;
+  color: $fg-color;
+  font-weight: bold;
+
+  > centerbox {
+    background: $bg-color;
+    border-radius: 10px;
+    margin: 8px;
+    padding: 4px;
+  }
+
+  button {
+    border-radius: 8px;
+    margin: 2px;
+    min-height: 0;
+    padding: 4px 8px;
+  }
+
+  // ワークスペースのドット (空: 小さな点、使用中: 濃い点、フォーカス中: 横長のピル)
+  .workspaces {
+    background: $dot-track;
+    border-radius: 12px;
+    padding: 0 8px;
+    min-height: 20px;
+  }
+
+  button.workspace {
+    min-width: 8px;
+    min-height: 8px;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    background: $dot-idle;
+    transition: 150ms ease;
+
+    &.occupied {
+      background: $dot-occupied;
+    }
+
+    &.focused {
+      min-width: 24px;
+      background: $selected-bg;
+    }
+  }
+
+  // タスクトレイのタスク (アイコンのみ)
+  button.task {
+    padding: 4px 6px;
+
+    &.focused {
+      @include selected;
+    }
+  }
+
+  // 通知バッジ
+  .control-center label.badge {
+    color: $selected-fg;
+    background: $selected-bg;
+    border-radius: 8px;
+    padding: 0 6px;
+    font-weight: bold;
+  }
+}
+
+// ============================================================================
+// コントロールセンター (popover 内)
+// ============================================================================
+// popover は window.Bar の子孫でもあるため、バー用の太字・ボタン余白をここで打ち消す
+popover.control-center-popover {
+  font-weight: normal;
+
+  > contents {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  button {
+    margin: 0;
+    min-height: 0;
+  }
+
+  separator {
+    margin: 4px 0;
+  }
+
+  // トグルタイル (左: ON/OFF、右: 詳細設定を開く)
+  box.cc-tile {
+    togglebutton,
+    > button {
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    // linked で繋がって見えるよう、つなぎ目側の角は丸めない
+    togglebutton {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    > button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    togglebutton:checked {
+      @include selected;
+    }
+
+    label.tile-title {
+      font-weight: bold;
+    }
+
+    label.tile-subtitle {
+      font-size: smaller;
+    }
+  }
+
+  // 音量スライダーのデバイス切り替え一覧
+  box.endpoint-list button.endpoint-row {
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  // 音楽プレイヤー (MPD)
+  box.cc-music {
+    background: $dot-track;
+    border-radius: 12px;
+    padding: 8px 12px;
+
+    label.music-title {
+      font-weight: bold;
+    }
+
+    overlay.music-art {
+      background: $dot-idle;
+      border-radius: 8px;
+    }
+
+    label.music-subtitle,
+    label.music-time {
+      color: $unfocused-fg;
+      font-size: smaller;
+    }
+
+    progressbar trough,
+    progressbar progress {
+      min-height: 4px;
+    }
+  }
+
+  // 通知セクション
+  box.cc-notifications {
+    box.cc-notifications-header > label {
+      font-weight: bold;
+    }
+
+    togglebutton:checked {
+      @include selected;
+    }
+
+    label.placeholder {
+      color: $unfocused-fg;
+      padding: 16px;
+    }
+  }
+}
+
+// ============================================================================
+// 通知カード (ポップアップとコントロールセンターで共有)
+// ============================================================================
+box.notification-card {
+  background: $bg-color;
+  border-radius: 10px;
+  border-left: 4px solid $unfocused-fg;
+  padding: 8px;
+
+  // 緊急性に応じたアクセントカラー
+  &.low {
+    border-left-color: $unfocused-fg;
+  }
+
+  &.normal {
+    border-left-color: $selected-bg;
+  }
+
+  &.critical {
+    border-left-color: #{"@theme_error_bg_color"};
+  }
+
+  box.header {
+    label.app-name {
+      font-weight: bold;
+    }
+
+    label.time {
+      color: $unfocused-fg;
+      font-size: smaller;
+    }
+
+    button {
+      min-height: 0;
+      padding: 2px;
+    }
+  }
+
+  box.content {
+    label.summary {
+      font-weight: bold;
+    }
+
+    label.body {
+      color: $unfocused-fg;
+    }
+  }
+
+  box.actions {
+    margin-top: 4px;
+
+    button {
+      min-height: 0;
+      padding: 4px 8px;
+    }
+  }
+}
+
+// 通知ポップアップ (バーの下に重ならないよう余白だけ確保)
+window.NotificationPopups {
+  background: transparent;
+
+  > box {
+    margin: 8px;
+  }
+}
+
+// ============================================================================
+// アプリランチャー
+// ============================================================================
+window.Launcher {
+  background: transparent;
+
+  box.launcher-backdrop {
+    // 背景のオーバーレイ (半透明)。alpha() は GTK CSS の関数なので、
+    // ビルドを通すため Sass 組み込みの rgba() で書く
+    background: rgba(black, 0.5);
+  }
+
+  box.launcher-content {
+    background: $bg-color;
+    color: $fg-color;
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 640px;
+    min-height: 400px;
+
+    > entry {
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    flowbox.app-grid {
+      background: transparent;
+      padding: 4px;
+
+      flowboxchild {
+        padding: 4px;
+        border-radius: 8px;
+
+        label {
+          font-weight: normal;
+        }
+      }
+    }
+
+    button.app-button {
+      background: transparent;
+      border-radius: 8px;
+      padding: 8px;
+
+      &:hover,
+      &:selected {
+        @include selected;
+      }
+    }
+
+    label.placeholder {
+      color: $unfocused-fg;
+      padding: 24px;
+    }
+  }
+}
+
+// 時計の popover (カレンダー)
+popover.clock-popover {
+  padding: 8px;
+}
