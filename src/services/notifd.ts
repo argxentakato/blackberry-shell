@@ -3,7 +3,7 @@
 // そこでポップアップ (一時表示) と履歴 (通知センター) をシェル側で別々に持つ。
 import AstalNotifd from "gi://AstalNotifd?version=0.1"
 import { createState } from "ags"
-import { config } from "../config"
+import { config } from "../utils/config"
 
 type Notification = AstalNotifd.Notification
 

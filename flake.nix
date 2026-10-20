@@ -19,9 +19,9 @@
     pkgs = nixpkgs.legacyPackages.${system};
     name = "blackberry-shell";
     pname = "blackberry-shell";
-    entry = "app.ts";
+    entry = "src/app.ts";
 
-    # シェルに注入する設定 (widget/config.ts の Config と同じ構造)。
+    # シェルに注入する設定 (lib/config.ts の Config と同じ構造)。
     # 省略したキーは config.ts の既定値が使われる
     shellConfig = {
       mopidyUrl = "http://localhost:6680";

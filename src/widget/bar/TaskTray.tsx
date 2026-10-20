@@ -3,7 +3,7 @@ import AstalHyprland from "gi://AstalHyprland?version=0.1"
 import Gio from "gi://Gio?version=2.0"
 import GioUnix from "gi://GioUnix?version=2.0"
 import { createBinding, For } from "ags"
-import { focusWindow } from "../hyprland"
+import { focusWindow } from "../../services/hyprland"
 
 // インストール済みアプリ (初回アクセス時に一度だけ取得する)
 let apps: Gio.AppInfo[] | null = null

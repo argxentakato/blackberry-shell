@@ -2,7 +2,7 @@
 import AstalHyprland from "gi://AstalHyprland?version=0.1"
 import { Gtk } from "ags/gtk4"
 import { createBinding, createComputed, For } from "ags"
-import { focusWorkspace } from "../hyprland"
+import { focusWorkspace } from "../../services/hyprland"
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default()

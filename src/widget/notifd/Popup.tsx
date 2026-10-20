@@ -3,7 +3,7 @@ import app from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { For, onCleanup } from "ags"
 import NotificationCard from "./NotificationCard"
-import { popups, hidePopup } from "./store"
+import { popups, hidePopup } from "../../services/notifd"
 
 // JSX から <NotificationPopups gdkmonitor={...} /> の形で呼ばれるため、
 // 引数は props オブジェクトとして受け取る (Gnim の関数コンポーネント規約)

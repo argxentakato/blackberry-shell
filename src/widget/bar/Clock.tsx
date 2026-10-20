@@ -2,7 +2,7 @@
 import { Gtk } from "ags/gtk4"
 import GLib from "gi://GLib?version=2.0"
 import { createPoll } from "ags/time"
-import { config } from "../config"
+import { config } from "../../utils/config"
 
 export default function Clock({ format = config.clock.format }) {
   // 表示中の文字列を定期的に再計算して更新する

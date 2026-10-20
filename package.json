@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "typecheck": "! tsc --noEmit --pretty false | grep -E '^(app\\.ts|env\\.d\\.ts|widget/)'"
+    "typecheck": "! tsc --noEmit --pretty false | grep -E '^(src/|env\\.d\\.ts)'"
   },
   "dependencies": {
     "ags": "*",

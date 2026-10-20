@@ -10,7 +10,7 @@ import Toggles from "./controlcenter/Toggles"
 import Sliders from "./controlcenter/Sliders"
 import MusicPlayer from "./controlcenter/MusicPlayer"
 import Notifications from "./controlcenter/Notifications"
-import { history } from "../notifd/store"
+import { history } from "../../services/notifd"
 
 function Indicators() {
   const network = AstalNetwork.get_default()

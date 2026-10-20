@@ -1,10 +1,10 @@
 // コントロールセンターの通知セクション (通知センター)。
-// 履歴は notifd/store.ts が保持しており、ここで手動で消すまで残る。
+// 履歴は services/notifd.ts が保持しており、ここで手動で消すまで残る。
 import AstalNotifd from "gi://AstalNotifd?version=0.1"
 import { Gtk } from "ags/gtk4"
 import { createBinding, For } from "ags"
 import NotificationCard from "../../notifd/NotificationCard"
-import { history, removeFromHistory, clearHistory } from "../../notifd/store"
+import { history, removeFromHistory, clearHistory } from "../../../services/notifd"
 
 export default function Notifications() {
   const notifd = AstalNotifd.get_default()

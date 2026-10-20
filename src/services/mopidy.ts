@@ -3,7 +3,7 @@
 import GLib from "gi://GLib?version=2.0"
 import { createPoll } from "ags/time"
 import { fetch } from "ags/fetch"
-import { config } from "./config"
+import { config } from "../utils/config"
 
 export const MOPIDY_URL = config.mopidyUrl
 // 応答が止まっても UI を巻き込まないための上限 (ms)

@@ -6,7 +6,7 @@ import { Gtk } from "ags/gtk4"
 import Pango from "gi://Pango?version=1.0"
 import { execAsync } from "ags/process"
 import { type Accessor, createBinding, createComputed, With } from "ags"
-import { config } from "../../config"
+import { config } from "../../../utils/config"
 
 const { bluetooth: BLUETOOTH_APP, network: NETWORK_APP } = config.apps
 

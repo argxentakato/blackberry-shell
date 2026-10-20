@@ -3,7 +3,7 @@ import app from "ags/gtk4/app"
 import { createBinding, For, This } from "ags"
 import Bar from "./Bar"
 import NotificationPopups from "./notifd/Popup"
-import { initNotificationStore } from "./notifd/store"
+import { initNotificationStore } from "../services/notifd"
 import Launcher from "./Launcher"
 
 export function setup() {

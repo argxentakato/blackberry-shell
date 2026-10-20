@@ -2,8 +2,8 @@
 import Pango from "gi://Pango?version=1.0"
 import { Gtk } from "ags/gtk4"
 import { With } from "ags"
-import { music, next, previous, togglePlayback } from "../../mopidy"
-import { albumArt } from "../../albumart"
+import { music, next, previous, togglePlayback } from "../../../services/mopidy"
+import { albumArt } from "../../../services/albumart"
 
 function formatTime(seconds: number) {
   const s = Math.floor(seconds)

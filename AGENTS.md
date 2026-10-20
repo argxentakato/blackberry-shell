@@ -14,18 +14,21 @@ Wayland 向けデスクトップシェル (AGS / Astal, GTK4, TypeScript + JSX)�
 ## よく使うコマンド
 
 ```sh
-nix develop -c ags run app.ts          # 開発実行
-nix develop -c ags bundle app.ts out   # バンドル
+nix develop -c ags run src/app.ts          # 開発実行
+nix develop -c ags bundle src/app.ts out   # バンドル
 nix build                              # パッケージビルド (flake の default)
 ```
 
 ## 構成
 
-- [app.ts](app.ts): エントリポイント。`app.start` でモニターごとに `Bar` を生成
-- [widget/](widget/): ウィジェット (`Bar.tsx` など)
-- [style.scss](style.scss): スタイル
-- [flake.nix](flake.nix): パッケージと devShell の定義 (`astal4` / `io` / `libadwaita` / `libsoup_3`)
-- [env.d.ts](env.d.ts): 型宣言
+- `src/app.ts`: エントリポイント。`app.start` でモニターごとに `Bar` を生成
+- `src/app.scss`: グローバルスタイル
+- `src/widget/`: UI コンポーネント (`Bar.tsx` / `Launcher.tsx` / 通知ポップアップなど)
+- `src/services/`: 状態を持つサービス (`hyprland` / `mopidy` / `albumart` / `notifd` ストア)
+- `src/utils/`: ユーティリティ (`config`)
+- `src/handlers/`: `ags request` などの CLI コマンドハンドラ
+- `flake.nix`: パッケージと devShell の定義 (`astal4` / `io` / `libadwaita` / `libsoup_3`)
+- `env.d.ts`: 型宣言
 - `@girs/`: GObject Introspection の型定義。**自動生成物のため編集しない**
 
 ## 規約
